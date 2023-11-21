@@ -633,7 +633,7 @@ export const questions = [
 
 export const userAnswers = JSON.parse(localStorage.getItem('user-answers')) || [];
 
-const userResults = JSON.parse(localStorage.getItem('user-results')) || [];
+const userResults =  [];
 
 export function addToUserAnswers(userAnswer, number, userChoice) {
   let matchingAnswer;
@@ -662,9 +662,10 @@ export function saveUserAnswers() {
   localStorage.setItem('user-answers', JSON.stringify(userAnswers));
 }
 
-function saveUserResults(){
+/*function saveUserResults(){
   localStorage.setItem('user-results', JSON.stringify(userResults));
 }
+*/
 
 function removeUserAnswers(){
   localStorage.removeItem('user-answers');
@@ -737,7 +738,7 @@ function calLevel(){
 
 export function finishButtonToggle(){
   calculateResult();
-  saveUserResults();
+  //saveUserResults();
   removeUserAnswers();
   userScoresHTML();
 }
