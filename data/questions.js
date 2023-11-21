@@ -633,7 +633,7 @@ export const questions = [
 
 export const userAnswers = JSON.parse(localStorage.getItem('user-answers')) || [];
 
-const userResults =  [];
+export const userResults = JSON.parse(localStorage.getItem('user-results')) || [];
 
 export function addToUserAnswers(userAnswer, number, userChoice) {
   let matchingAnswer;
@@ -662,12 +662,12 @@ export function saveUserAnswers() {
   localStorage.setItem('user-answers', JSON.stringify(userAnswers));
 }
 
-/*function saveUserResults(){
+function saveUserResults(){
   localStorage.setItem('user-results', JSON.stringify(userResults));
 }
-*/
 
-function removeUserAnswers(){
+
+function removeUserAnswers() {
   localStorage.removeItem('user-answers');
 }
 
@@ -682,7 +682,7 @@ function calculateResult() {
       }
     });
 
-    if (answer === matchingAnswer.answer){
+    if (answer === matchingAnswer.answer) {
       userResults.push(
         {
           number,
@@ -703,10 +703,10 @@ function calculateResult() {
   });
 }
 
-function calUserScores(){
+function calUserScores() {
   let yourScore = 0;
   userResults.forEach((oneResult) => {
-    if (oneResult.result === 'correct'){
+    if (oneResult.result === 'correct') {
       yourScore += 1;
     }
   });
@@ -714,43 +714,44 @@ function calUserScores(){
   return yourScore;
 }
 
-function calLevel(){
+function calLevel() {
   const score = calUserScores();
   let yourLevel;
 
-  if (score <= 24){
+  if (score <= 24) {
     yourLevel = 'Beginner';
   }
-  else if (score <= 30){
+  else if (score <= 30) {
     yourLevel = 'Elementary';
-  } 
-  else if (score <= 48){
+  }
+  else if (score <= 48) {
     yourLevel = 'Pre-intermediate';
-  } 
-  else if (score <= 72){
+  }
+  else if (score <= 72) {
     yourLevel = 'Intermediate';
   }
-  else if (score <= 96){
+  else if (score <= 96) {
     yourLevel = 'Upper-intermediate';
   }
   return yourLevel;
 }
 
-export function finishButtonToggle(){
+export function finishButtonToggle() {
   calculateResult();
-  //saveUserResults();
+  saveUserResults();
   removeUserAnswers();
   userScoresHTML();
 }
 
-export function userScoresHTML(){
-  const html = 
-  `
+export function userScoresHTML() {
+  const html =
+    `
   <div class="complete-container">
     <div class="complete-message">Well done for completing the test!</div>
     <div class="scores">Your Score is ${calUserScores()} out of ${questions.length}.</div>
     <div class="your-level">So, your English level is ${calLevel()}.</div>
-    <button class="review-button">Review your Score</button>
+    <button class="review-button">Review your answers</button>
+    <button class="reset-button">Reset</button>
   </div>
   `;
 
@@ -761,5 +762,82 @@ export function userScoresHTML(){
   document.querySelector('.current-page')
     .style.display = 'none';
   document.querySelector('.title')
-    .innerHTML = 'Test Your English - Results';
+    .innerHTML = 'ENGLISH LEVEL TEST - RESULTS';
+
+    document.querySelector('.review-button')
+    .addEventListener('click', () => {
+      reviewYourAnswersHTML();
+    });
+
+    document.querySelector('.reset-button')
+    .addEventListener('click', () => {
+      resetUserResults();
+    });
+}
+
+function reviewYourAnswersHTML(){
+  let html = '';
+
+  userResults.forEach((results) => {
+    const {number, result, yourAnswer} = results;
+
+    let matchingQuestion;
+
+    questions.forEach((question) => {
+      if (question.number === number){
+        matchingQuestion = question;
+      }
+    });
+
+  const {answer, question} = matchingQuestion;
+
+
+    if (yourAnswer === answer){
+      html += `
+      <div class="question-container">
+      <div class="question">
+        <div class="number correct-number">${number}</div>
+        <div class="text">${question}</div>
+      </div>
+      <div class="correct-text">Correct (your answer)</div>
+      <div class="choice-container correct-border">
+        <img class="correct-icon" src="images/correct-icon.png">
+        <div class="choice">${yourAnswer}</div>
+      </div>
+    </div>
+      `;
+    } else {
+
+      html +=  `
+      <div class="question-container">
+      <div class="question">
+        <div class="number incorrect-number">${number}</div>
+        <div class="text">${question}</div>
+      </div>
+      <div class="incorrect-text">Incorrect (your answer)</div>
+      <div class="choice-container incorrect-border">
+        <img class="incorrect-icon" src="images/incorrect-icon.png">
+        <div class="choice">${yourAnswer}</div>
+      </div>
+      <div class="correct-text">Correct</div>
+      <div class="choice-container correct-border">
+        <img class="correct-icon" src="images/correct-icon.png">
+        <div class="choice">${answer}</div>
+      </div>
+    </div>
+      `;
+    }
+
+  });
+
+  document.querySelector('.all-questions-container')
+    .innerHTML = html;
+    document.querySelector('.title')
+    .innerHTML = 'ENGLISH LEVEL TEST - Review your answers';
+
+}
+
+function resetUserResults(){
+  localStorage.removeItem('user-results');
+  renderHTML();
 }

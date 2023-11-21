@@ -3,6 +3,30 @@
   font-size: 1em;
 }
 
+.header {
+  background-color: rgb(245, 245, 245);
+  display: flex;
+  align-items: center;
+  margin: -10px;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 5px;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.left-section div {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.sea-logo {
+  height: 55px;
+}
+
 .container {
   padding: 20px;
   margin-left: auto;
@@ -11,13 +35,14 @@
 }
 
 .title {
-  font-size: 1.1em;
+  font-size: 1.5em;
   font-weight: 600;
   margin-bottom: 20px;
 }
 
 .current-page {
   margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .all-questions-container {
@@ -106,17 +131,55 @@
   margin-bottom: 5px;
 }
 
-.review-button {
+.review-button,
+.reset-button {
   margin-top: 10px;
   border: none;
   background-color: black;
   color: white;
   border-radius: 5px;
-  padding: 5px;
+  padding: 7px;
   cursor: pointer;
 }
 
-.review-button:hover {
+.review-button:hover,
+.reset-button:hover {
   opacity: 0.75;
 }
 
+.correct-icon,
+.incorrect-icon {
+  height: 25px;
+}
+
+.incorrect-border {
+  border: 1.5px solid (212, 17, 17);
+  background-color: rgb(252, 252, 252);
+  color: rgb(212, 17, 17);
+}
+
+.correct-number {
+  background-color: rgb(0, 224, 56);
+}
+
+.incorrect-number {
+  background-color: rgb(212, 17, 17);
+}
+
+.correct-border {
+  border: 1.5px solid rgb(0, 224, 56);
+  background-color: rgb(252, 252, 252);
+  color: rgb(0, 224, 56);
+}
+
+.correct-text {
+  color: rgb(0, 224, 56);
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.incorrect-text {
+  color: rgb(212, 17, 17);
+  font-weight: 600;
+  font-size: 0.9em;
+}

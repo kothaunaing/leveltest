@@ -1,5 +1,5 @@
 import { questions, addToUserAnswers, 
-  userAnswers, saveUserAnswers, finishButtonToggle, userScoresHTML
+  userAnswers, saveUserAnswers, finishButtonToggle, userScoresHTML, userResults
 } from "../data/questions.js";
 
 let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
@@ -10,8 +10,11 @@ const totalPages = Math.ceil((questions.length / questionsPerPage));
 
 renderHTML();
 CheckIfcompleteTheTest();
+if (userResults.length !== 0){
+  userScoresHTML();
+}
 
-function renderHTML() {
+export function renderHTML() {
   const currentPage = calculateCurrentPage();
 
   let html = '';
@@ -123,6 +126,18 @@ function stayInThisPage() {
   }, 5000)
 }
 
+function CheckIfcompleteTheTest() {
+  if (userAnswers.length !== questions.length) {
+    document.querySelector('.finish-button')
+      .style.display = 'none';
+  } else {
+    document.querySelector('.next-button')
+      .style.display = 'none';
+    document.querySelector('.finish-button')
+      .style.display = 'block';
+  }
+}
+
 
 document.querySelector('.next-button')
   .addEventListener('click', () => {
@@ -139,14 +154,3 @@ document.querySelector('.finish-button')
     finishButtonToggle();
   });
 
-function CheckIfcompleteTheTest() {
-  if (userAnswers.length !== questions.length) {
-    document.querySelector('.finish-button')
-      .style.display = 'none';
-  } else {
-    document.querySelector('.next-button')
-      .style.display = 'none';
-    document.querySelector('.finish-button')
-      .style.display = 'block';
-  }
-}
