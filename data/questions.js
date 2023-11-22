@@ -838,6 +838,9 @@ function reviewYourAnswersHTML() {
       Back to results
     </button>
     </div>
+    <button class="to-bottom-button">
+      <img class="down-arrow-icon" src="images/down-arrow.png">
+    </button>
     `;
 
   document.querySelector('.back-to-results-btn')
@@ -845,6 +848,28 @@ function reviewYourAnswersHTML() {
       userScoresHTML();
     });
 
+  document.querySelector('.to-bottom-button')
+    .addEventListener('click', () => {
+      scrollTo(
+        {
+          top: document.querySelector('.app-display').scrollHeight,
+          behavior: 'smooth'
+        }
+      )
+    });
+
+  const buttonElement = document.querySelector('.to-bottom-button');
+
+  window.addEventListener('scroll', () => {
+    if (document.documentElement.scrollTop < document.querySelector('.app-display').scrollHeight - 700) {
+      buttonElement
+        .style.display = 'flex';
+    } else {
+      buttonElement
+        .style.display = 'none';
+    }
+  });
+  
 }
 
 function resetUserResults() {
