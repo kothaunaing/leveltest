@@ -10,7 +10,7 @@ const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
 
 renderHTML();
-CheckIfcompleteTheTest();
+
 if (userResults.length !== 0) {
   userScoresHTML();
 }
@@ -53,12 +53,22 @@ export function renderHTML() {
   document.querySelector('.title')
     .innerHTML = 'ENGLISH LEVEL TEST';
 
-  document.querySelector('.all-questions-container')
-    .innerHTML = html;
-
-  document.querySelector('.current-page')
-    .innerHTML = `Page ${currentPage} of ${totalPages}`;
-
+  document.querySelector('.app-display')
+    .innerHTML = `
+    <div class="error-message">
+      <img class="error-icon" src="images/error-icon.png">
+      <div>You must answer all questions before proceeding.</div>
+    </div>
+    <div class="current-page">
+      Page ${currentPage} of ${totalPages}
+    </div>
+    ${html}
+    <div class="buttons">
+      <a href="#test-title"><button class="next-button">Next</button></a>
+      <button class="finish-button">Finish</button>
+    </div>
+    `;
+  CheckIfcompleteTheTest();
   document.querySelectorAll('.js-choice-container')
     .forEach((element) => {
       element.addEventListener('click', () => {
@@ -69,6 +79,21 @@ export function renderHTML() {
         saveUserAnswers();
         CheckIfcompleteTheTest();
       });
+    });
+
+  document.querySelector('.next-button')
+    .addEventListener('click', () => {
+      if (userAnswers.length < answeredQuestions) {
+        stayInThisPage();
+      } else {
+        goToNextPage();
+      }
+    });
+
+  document.querySelector('.finish-button')
+    .addEventListener('click', () => {
+      removeFromStorage();
+      finishButtonToggle();
     });
 }
 
@@ -123,7 +148,7 @@ let timeOutId;
 function stayInThisPage() {
   const element = document.querySelector('.error-message');
 
-  element.style.display = 'block';
+  element.style.display = 'flex';
   clearTimeout(timeOutId);
   timeOutId = setTimeout(() => {
     element.style.display = 'none';
@@ -141,20 +166,4 @@ function CheckIfcompleteTheTest() {
       .style.display = 'block';
   }
 }
-
-
-document.querySelector('.next-button')
-  .addEventListener('click', () => {
-    if (userAnswers.length < answeredQuestions) {
-      stayInThisPage();
-    } else {
-      goToNextPage();
-    }
-  });
-
-document.querySelector('.finish-button')
-  .addEventListener('click', () => {
-    removeFromStorage();
-    finishButtonToggle();
-  });
 

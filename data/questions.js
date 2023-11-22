@@ -1,5 +1,3 @@
-import {renderHTML} from '../scripts/main.js';
-
 export const questions = [
   {
     number: '1',
@@ -664,7 +662,7 @@ export function saveUserAnswers() {
   localStorage.setItem('user-answers', JSON.stringify(userAnswers));
 }
 
-function saveUserResults(){
+function saveUserResults() {
   localStorage.setItem('user-results', JSON.stringify(userResults));
 }
 
@@ -757,45 +755,41 @@ export function userScoresHTML() {
   </div>
   `;
 
-  document.querySelector('.all-questions-container')
-    .innerHTML = html;
-  document.querySelector('.buttons')
-    .style.display = 'none';
-  document.querySelector('.current-page')
-    .style.display = 'none';
   document.querySelector('.title')
-    .innerHTML = 'ENGLISH LEVEL TEST - RESULTS';
+    .innerHTML = 'ENGLISH LEVEL TEST - Results';
+  document.querySelector('.app-display')
+    .innerHTML = html;
 
-    document.querySelector('.review-button')
+  document.querySelector('.review-button')
     .addEventListener('click', () => {
       reviewYourAnswersHTML();
     });
 
-    document.querySelector('.reset-button')
+  document.querySelector('.reset-button')
     .addEventListener('click', () => {
       resetUserResults();
       refreshPage();
     });
 }
 
-function reviewYourAnswersHTML(){
+function reviewYourAnswersHTML() {
   let html = '';
 
   userResults.forEach((results) => {
-    const {number, result, yourAnswer} = results;
+    const { number, result, yourAnswer } = results;
 
     let matchingQuestion;
 
     questions.forEach((question) => {
-      if (question.number === number){
+      if (question.number === number) {
         matchingQuestion = question;
       }
     });
 
-  const {answer, question} = matchingQuestion;
+    const { answer, question } = matchingQuestion;
 
 
-    if (yourAnswer === answer){
+    if (yourAnswer === answer) {
       html += `
       <div class="question-container">
       <div class="question">
@@ -811,7 +805,7 @@ function reviewYourAnswersHTML(){
       `;
     } else {
 
-      html +=  `
+      html += `
       <div class="question-container">
       <div class="question">
         <div class="number incorrect-number">${number}</div>
@@ -833,17 +827,18 @@ function reviewYourAnswersHTML(){
 
   });
 
-  document.querySelector('.all-questions-container')
+  document.querySelector('.title')
+    .innerHTML = 'ENGLISH LEVEL TEST - Review your answers';
+
+  document.querySelector('.app-display')
     .innerHTML = `
     ${html}
     <div>
-    <button class="back-to-results-btn ">
+    <button class="back-to-results-btn">
       Back to results
     </button>
     </div>
     `;
-    document.querySelector('.title')
-    .innerHTML = 'ENGLISH LEVEL TEST - Review your answers';
 
   document.querySelector('.back-to-results-btn')
     .addEventListener('click', () => {
@@ -852,10 +847,10 @@ function reviewYourAnswersHTML(){
 
 }
 
-function resetUserResults(){
+function resetUserResults() {
   localStorage.removeItem('user-results');
 }
 
-function refreshPage(){
+function refreshPage() {
   window.location.reload();
 }

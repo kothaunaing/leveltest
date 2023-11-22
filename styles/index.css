@@ -3,11 +3,18 @@
   font-size: 1em;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .header {
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(248, 248, 248);
   display: flex;
   align-items: center;
-  margin: -10px;
+  margin: -8px;
   border-bottom: 1px solid rgb(221, 221, 221);
   padding: 5px;
 }
@@ -41,11 +48,11 @@
 }
 
 .current-page {
-  margin-bottom: 20px;
+  margin-bottom: 0;
   font-weight: 600;
 }
 
-.all-questions-container {
+.app-display {
   display: grid;
   row-gap: 20px;
 }
@@ -97,7 +104,8 @@
 
 .next-button,
 .finish-button,
-.back-to-results-btn {
+.back-to-results-btn,
+.button {
   padding: 5px 20px;
   border: none;
   background-color: rgb(0, 0, 0);
@@ -106,14 +114,18 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s;
-  margin-top: 10px;
 }
 
 a {
   text-decoration: none;
 }
 
-.next-button:hover {
+.button {
+  padding: 10px 40px;
+}
+
+.next-button:hover,
+.button:hover {
   opacity: 0.75;
 }
 
@@ -128,10 +140,15 @@ a {
 }
 
 .error-message {
-  margin: 10px 0;
   font-weight: 600;
   display: none;
   color: rgb(184, 12, 12);
+  align-items: center;
+  column-gap: 5px;
+}
+
+.error-icon {
+  height: 25px;
 }
 
 .complete-message {
@@ -198,4 +215,21 @@ a {
   color: rgb(212, 17, 17);
   font-weight: 600;
   font-size: 0.9em;
+}
+
+.footer {
+  background-color: rgb(248, 248, 248);
+  border-top: 1px solid rgb(221, 221, 221);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: -8px;
+  margin-top: auto;
+}
+
+.fb-link {
+  color: rgb(0, 0, 255);
+  font-weight: 600;
 }
