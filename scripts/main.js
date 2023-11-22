@@ -1,4 +1,5 @@
-import { questions, addToUserAnswers, 
+import {
+  questions, addToUserAnswers,
   userAnswers, saveUserAnswers, finishButtonToggle, userScoresHTML, userResults
 } from "../data/questions.js";
 
@@ -10,7 +11,7 @@ const totalPages = Math.ceil((questions.length / questionsPerPage));
 
 renderHTML();
 CheckIfcompleteTheTest();
-if (userResults.length !== 0){
+if (userResults.length !== 0) {
   userScoresHTML();
 }
 
@@ -49,6 +50,9 @@ export function renderHTML() {
       `;
   });
 
+  document.querySelector('.title')
+    .innerHTML = 'ENGLISH LEVEL TEST';
+
   document.querySelector('.all-questions-container')
     .innerHTML = html;
 
@@ -76,7 +80,7 @@ function choiceHTML(choices, number, userChoice) {
     let isChecked = String(index + 1) === userChoice;
 
     html += `
-    <div class="choice-container js-choice-container"
+    <div class="choice-container ${isChecked ? 'choice-container-chosen' : ' '} js-choice-container"
     data-user-answer="${choice}" data-number="${number}"
     data-user-choice="${index + 1}">
       <input ${isChecked ? 'checked' : ' '} class="radio-button" type="radio" name="choice-${number}">
@@ -94,7 +98,7 @@ function saveToLocalStorage() {
   localStorage.setItem('answered-questions', String(answeredQuestions));
 }
 
-function removeFromStorage(){
+function removeFromStorage() {
   localStorage.removeItem('current-questions');
   localStorage.removeItem('left-questions');
   localStorage.removeItem('answered-questions');

@@ -723,7 +723,7 @@ function calLevel() {
   if (score <= 24) {
     yourLevel = 'Beginner';
   }
-  else if (score <= 30) {
+  else if (score <= 35) {
     yourLevel = 'Elementary';
   }
   else if (score <= 48) {
@@ -750,10 +750,10 @@ export function userScoresHTML() {
     `
   <div class="complete-container">
     <div class="complete-message">Well done for completing the test!</div>
-    <div class="scores">Your Score is ${calUserScores()} out of ${questions.length}.</div>
-    <div class="your-level">So, your English level is ${calLevel()}.</div>
+    <div class="scores">Your score is ${calUserScores()} out of ${questions.length}.</div>
+    <div class="your-level">And your English level is ${calLevel()}.</div>
     <button class="review-button">Review your answers</button>
-    <button class="reset-button">Reset</button>
+    <button class="reset-button">Retake the test</button>
   </div>
   `;
 
@@ -774,7 +774,7 @@ export function userScoresHTML() {
     document.querySelector('.reset-button')
     .addEventListener('click', () => {
       resetUserResults();
-      renderHTML();
+      refreshPage();
     });
 }
 
@@ -854,4 +854,8 @@ function reviewYourAnswersHTML(){
 
 function resetUserResults(){
   localStorage.removeItem('user-results');
+}
+
+function refreshPage(){
+  window.location.reload();
 }

@@ -88,6 +88,11 @@
   max-width: 600px;
   border-radius: 7px;
   cursor: pointer;
+  box-shadow: 0 0 3px rgba(3, 3, 3, 0.055);
+}
+
+.choice-container-chosen {
+  border: 1px solid rgb(0, 47, 255);
 }
 
 .next-button,
@@ -102,6 +107,10 @@
   cursor: pointer;
   transition: opacity 0.15s;
   margin-top: 10px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .next-button:hover {
@@ -122,6 +131,7 @@
   margin: 10px 0;
   font-weight: 600;
   display: none;
+  color: rgb(184, 12, 12);
 }
 
 .complete-message {
@@ -157,25 +167,26 @@
   height: 25px;
 }
 
+.correct-border {
+  border: 1.5px solid rgb(0, 189, 47);
+  color: rgb(0, 189, 47);
+  box-shadow: 0 0 3px rgba(3, 3, 3, 0.281);
+}
+
 .incorrect-border {
-  border: 1.5px solid rgb(212, 17, 17);
-  background-color: rgb(252, 252, 252);
-  color: rgb(212, 17, 17);
+  border: 1.5px solid rgb(223, 0, 0);
+  color: rgb(223, 0, 0);
+  box-shadow: 0 0 3px rgba(3, 3, 3, 0.281);
 }
 
 .correct-number {
-  background-color: rgb(0, 224, 56);
+  background-color: rgb(0, 189, 47);
 }
 
 .incorrect-number {
-  background-color: rgb(212, 17, 17);
+  background-color: rgb(223, 0, 0);
 }
 
-.correct-border {
-  border: 1.5px solid rgb(0, 224, 56);
-  background-color: rgb(252, 252, 252);
-  color: rgb(0, 224, 56);
-}
 
 .correct-text {
   color: rgb(0, 224, 56);
