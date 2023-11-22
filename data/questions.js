@@ -1,3 +1,5 @@
+import {renderHTML} from '../scripts/main.js';
+
 export const questions = [
   {
     number: '1',
@@ -772,6 +774,7 @@ export function userScoresHTML() {
     document.querySelector('.reset-button')
     .addEventListener('click', () => {
       resetUserResults();
+      renderHTML();
     });
 }
 
@@ -831,13 +834,24 @@ function reviewYourAnswersHTML(){
   });
 
   document.querySelector('.all-questions-container')
-    .innerHTML = html;
+    .innerHTML = `
+    ${html}
+    <div>
+    <button class="back-to-results-btn ">
+      Back to results
+    </button>
+    </div>
+    `;
     document.querySelector('.title')
     .innerHTML = 'ENGLISH LEVEL TEST - Review your answers';
+
+  document.querySelector('.back-to-results-btn')
+    .addEventListener('click', () => {
+      userScoresHTML();
+    });
 
 }
 
 function resetUserResults(){
   localStorage.removeItem('user-results');
-  renderHTML();
 }
