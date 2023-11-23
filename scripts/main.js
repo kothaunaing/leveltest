@@ -34,7 +34,7 @@ export function renderHTML() {
     if (matchingAnswer) {
       userChoice = matchingAnswer.choice;
     } else {
-      userChoice = '5';
+      userChoice = '0';
     }
 
     html += `

@@ -235,7 +235,7 @@ a {
   font-weight: 600;
 }
 
-.to-bottom-button {
+.auto-scroll-buttons {
   position: fixed;
   border-radius: 25px;
   border: none;
@@ -245,14 +245,23 @@ a {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  opacity: 0.75;
+}
+
+.to-bottom-button {
   right: 0;
   top: 30%;
 }
 
-.to-bottom-button:hover {
-  opacity: 0.75;
+.to-top-button {
+  left: 0;
+  top: 50%;
 }
 
-.down-arrow-icon {
+.auto-scroll-buttons:hover {
+  opacity: 1;
+}
+
+.arrow-icon {
   height: 40px;
 }

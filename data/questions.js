@@ -838,9 +838,12 @@ function reviewYourAnswersHTML() {
       Back to results
     </button>
     </div>
-    <button class="to-bottom-button">
-      <img class="down-arrow-icon" src="images/down-arrow.png">
+    <button class="to-bottom-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/down-arrow.png">
     </button>
+    <button class="to-top-button auto-scroll-buttons">
+    <img class="arrow-icon" src="images/up-arrow.png">
+  </button>
     `;
 
   document.querySelector('.back-to-results-btn')
@@ -858,18 +861,39 @@ function reviewYourAnswersHTML() {
       )
     });
 
-  const buttonElement = document.querySelector('.to-bottom-button');
+  document.querySelector('.to-top-button')
+    .addEventListener('click', () => {
+      scrollTo(
+        {
+          top: 0,
+          behavior: 'smooth'
+        }
+      )
+    });
+
+  const bottomButtonElement = document.querySelector('.to-bottom-button');
+  const topButtonElement = document.querySelector('.to-top-button');
+  topButtonElement
+    .style.display = 'none';
 
   window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop < document.querySelector('.app-display').scrollHeight - 700) {
-      buttonElement
+      bottomButtonElement
         .style.display = 'flex';
     } else {
-      buttonElement
+      bottomButtonElement
+        .style.display = 'none';
+    }
+
+    if (document.documentElement.scrollTop > 700) {
+      topButtonElement
+        .style.display = 'flex';
+    } else {
+      topButtonElement
         .style.display = 'none';
     }
   });
-  
+
 }
 
 function resetUserResults() {
