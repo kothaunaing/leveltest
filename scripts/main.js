@@ -64,11 +64,13 @@ export function renderHTML() {
     </div>
     ${html}
     <div class="buttons">
-      <a href="#test-title"><button class="next-button">Next</button></a>
+      <button class="next-button">Next</button>
       <button class="finish-button">Finish</button>
     </div>
     `;
+
   CheckIfcompleteTheTest();
+
   document.querySelectorAll('.js-choice-container')
     .forEach((element) => {
       element.addEventListener('click', () => {
@@ -81,7 +83,8 @@ export function renderHTML() {
       });
     });
 
-  document.querySelector('.next-button')
+  const nextButtonElement = document.querySelector('.next-button')
+  nextButtonElement
     .addEventListener('click', () => {
       if (userAnswers.length < answeredQuestions) {
         stayInThisPage();
@@ -89,6 +92,16 @@ export function renderHTML() {
         goToNextPage();
       }
     });
+
+    nextButtonElement
+      .addEventListener('click', () => {
+        scrollTo(
+          {
+            top: 0,
+            behavior: 'smooth'
+          }
+        );
+      })
 
   document.querySelector('.finish-button')
     .addEventListener('click', () => {

@@ -324,7 +324,7 @@ export const questions = [
     number: '52',
     question: 'My parents __________ married since 1985.',
     choices: ['have been', 'are', 'were', 'got'],
-    answer: 'got',
+    answer: 'have been',
   },
   {
     number: '53',

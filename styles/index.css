@@ -38,7 +38,18 @@ body {
   padding: 20px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 700px;
+}
+
+@media (min-width: 550px){
+  .container {
+    width: 450px;
+  }
+}
+
+@media (min-width: 700px){
+  .container {
+    width: 550px;
+  }
 }
 
 .title {
@@ -155,6 +166,19 @@ a {
 .complete-message {
   font-size: 1.1em;
   margin-bottom: 10px;
+}
+
+.complete-container {
+  animation: appear 1s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .scores,
