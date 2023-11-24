@@ -667,7 +667,7 @@ function saveUserResults() {
 }
 
 
-function removeUserAnswers() {
+export function removeUserAnswers() {
   localStorage.removeItem('user-answers');
 }
 
@@ -900,6 +900,6 @@ function resetUserResults() {
   localStorage.removeItem('user-results');
 }
 
-function refreshPage() {
+export function refreshPage() {
   window.location.reload();
 }

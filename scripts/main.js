@@ -1,6 +1,9 @@
 import {
   questions, addToUserAnswers,
-  userAnswers, saveUserAnswers, finishButtonToggle, userScoresHTML, userResults
+  userAnswers, saveUserAnswers,
+  finishButtonToggle, userScoresHTML,
+  userResults, refreshPage,
+  removeUserAnswers
 } from "../data/questions.js";
 
 let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
@@ -60,7 +63,8 @@ export function renderHTML() {
       <div>You must answer all questions before proceeding.</div>
     </div>
     <div class="current-page">
-      Page ${currentPage} of ${totalPages}
+      <div>Page ${currentPage} of ${totalPages}</div>
+      <button class="stop-button js-stop-button">Stop</button>
     </div>
     ${html}
     <div class="buttons">
@@ -69,8 +73,8 @@ export function renderHTML() {
     </div>
     `;
 
-  CheckIfcompleteTheTest();
-
+  checkIfcompleteTheTest();
+  
   document.querySelectorAll('.js-choice-container')
     .forEach((element) => {
       element.addEventListener('click', () => {
@@ -79,7 +83,7 @@ export function renderHTML() {
         renderHTML();
         saveToLocalStorage();
         saveUserAnswers();
-        CheckIfcompleteTheTest();
+        checkIfcompleteTheTest();
       });
     });
 
@@ -93,21 +97,23 @@ export function renderHTML() {
       }
     });
 
-    nextButtonElement
-      .addEventListener('click', () => {
-        scrollTo(
-          {
-            top: 0,
-            behavior: 'smooth'
-          }
-        );
-      })
+  nextButtonElement
+    .addEventListener('click', () => {
+      scrollTo(
+        {
+          top: 0,
+          behavior: 'smooth'
+        }
+      );
+    })
 
   document.querySelector('.finish-button')
     .addEventListener('click', () => {
       removeFromStorage();
       finishButtonToggle();
     });
+
+  stopButtonFunction(currentPage);
 }
 
 function choiceHTML(choices, number, userChoice) {
@@ -168,7 +174,7 @@ function stayInThisPage() {
   }, 5000)
 }
 
-function CheckIfcompleteTheTest() {
+function checkIfcompleteTheTest() {
   if (userAnswers.length !== questions.length) {
     document.querySelector('.finish-button')
       .style.display = 'none';
@@ -180,3 +186,55 @@ function CheckIfcompleteTheTest() {
   }
 }
 
+const confirmElement = document.querySelector('.js-confirm-dialogue');
+
+function showConfirmMessage() {
+  confirmElement
+    .style.display = 'flex';
+}
+
+function hideConfirmMessage() {
+  confirmElement
+    .style.display = 'none';
+}
+
+function stopButtonFunction(currentPage) {
+  const stopButtonElement = document.querySelector('.js-stop-button')
+
+  if (currentPage > 1) {
+    stopButtonElement.style.display = 'block';
+  } else {
+    stopButtonElement.style.display = 'none';
+  }
+
+  stopButtonElement
+    .addEventListener('click', () => {
+      showConfirmMessage();
+    });
+
+  document.querySelector('.js-no-button')
+    .addEventListener('click', () => {
+      hideConfirmMessage();
+    });
+
+  document.querySelector('.js-yes-button')
+    .addEventListener('click', () => {
+      removeFromStorage();
+      removeUserAnswers();
+      refreshPage();
+    });
+}
+
+const morePagesElement = document.querySelector('.js-more-pages');
+const menuIconElement = document.querySelector('.js-menu-icon')
+
+menuIconElement
+  .addEventListener('click', () => {
+    menuIconElement.classList.toggle('menu-icon-active');
+    
+    if (menuIconElement.classList.contains('menu-icon-active')){
+      morePagesElement.style.display = 'none';
+    } else {
+      morePagesElement.style.display = 'flex';
+    }
+  });
