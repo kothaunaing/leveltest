@@ -64,7 +64,8 @@ body {
   padding: 5px;
   padding-left: 20px;
   background-color: rgb(243, 243, 243);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-direction: column;
   justify-content: center;
   row-gap: 2px;
@@ -72,6 +73,12 @@ body {
   border-bottom: 1px solid rgb(221, 221, 221);
   z-index: 0;
   transition: margin-top 0.35s ease;
+}
+
+.dark-mode-container {
+  display: flex;
+  align-items: start;
+  justify-content: end;
 }
 
 .more-pages-active {
@@ -106,13 +113,28 @@ body {
   cursor: pointer;
 }
 
-.more-pages div:hover {
+.dark-mode-button {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0);
+  cursor: pointer;
+}
+
+.dark-mode-button:hover {
+  border: 1px solid gray;
+}
+
+.dark-mode-icon {
+  height: 40px;
+}
+
+/*.more-pages div:hover {
   border: 1px solid rgb(167, 167, 167);
 }
+*/
 
 .search-container {
   position: absolute;
-  margin-top: -60px;
+  margin-top: -65px;
   top: -8px;
   left: -8px;
   right: -8px;
@@ -486,4 +508,11 @@ a {
   padding: 6px 15px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Dark Mode */
+
+.dark-mode {
+  background-color: rgb(73, 73, 73);
+  color: white;
 }

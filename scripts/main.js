@@ -256,3 +256,48 @@ document.querySelector('.close-search-icon')
   .addEventListener('click', () => {
     searchContainer.classList.remove('search-container-active');
   });
+
+// Dark Mode Feature
+
+const darkModeButton = document.querySelector('.dark-mode-button');
+let theme = localStorage.getItem('theme') || 'light-mode';
+
+if (theme === 'dark-mode'){
+  changeToDarkMode();
+  darkModeButton.classList.toggle('dark-mode-button-active');
+  changeDarkModeIcon();
+}
+
+changeDarkModeIcon();
+
+darkModeButton
+  .addEventListener('click', () => {
+    changeToDarkMode();
+    darkModeButton.classList.toggle('dark-mode-button-active');
+    changeDarkModeIcon();
+    localStorage.setItem('theme', theme);
+  });
+
+
+function changeToDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  document.querySelector('.header').classList.toggle('dark-mode');
+  document.querySelector('.footer').classList.toggle('dark-mode');
+  document.querySelector('.js-more-pages').classList.toggle('dark-mode');
+  document.querySelector('.confirm-message').classList.toggle('dark-mode');
+}
+
+function changeDarkModeIcon() {
+  let image;
+  if (darkModeButton.classList.contains('dark-mode-button-active')){
+    image = 'light';
+    theme = 'dark-mode';
+  } else {
+    image = 'dark';
+    theme = 'light-mode';
+  }
+  darkModeButton
+  .innerHTML = `
+  <img class="dark-mode-icon" src="images/${image}-icon.png">
+  `;
+}
