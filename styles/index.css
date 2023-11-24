@@ -116,12 +116,11 @@ body {
   left: -8px;
   right: 82px;
   z-index: 150;
-  background-color: rgba(255, 255, 255, 0.253);
+  background-color: rgb(240, 240, 240);
   height: 65px;
   display: none;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(6px);
 }
 
 .search-input {
@@ -171,17 +170,22 @@ body {
   height: 17px;
   border: 1px solid rgb(112, 112, 112);
   border-radius: 10px;
+  position: relative;
 }
 
 .progress-bar {
   background-color: rgb(74, 118, 168);
-  border-right: 1px solid rgb(61, 61, 61);
   height: 17px;
   border-radius: 10px;
-  text-align: center;
+}
+
+.progress-percentage {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  right: 50%;
+  top: -2px;
   font-weight: 600;
 }
 
@@ -424,7 +428,6 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: appear 0.5s ease;
   z-index: 200;
 }
 

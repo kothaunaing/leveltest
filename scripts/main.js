@@ -68,6 +68,8 @@ export function renderHTML() {
     </div>
     <div class="progress-bar-container">
       <div class="progress-bar" style="width: ${(userAnswers.length / questions.length) * 100}%;">
+      </div>
+      <div class="progress-percentage">
       ${Math.round(((userAnswers.length / questions.length) * 100))}%
       </div>
     </div>
