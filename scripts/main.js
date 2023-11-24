@@ -66,6 +66,11 @@ export function renderHTML() {
       <div>Page ${currentPage} of ${totalPages}</div>
       <button class="stop-button js-stop-button">Stop</button>
     </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" style="width: ${(userAnswers.length / questions.length) * 100}%;">
+      ${Math.round(((userAnswers.length / questions.length) * 100))}%
+      </div>
+    </div>
     ${html}
     <div class="buttons">
       <button class="next-button">Next</button>
