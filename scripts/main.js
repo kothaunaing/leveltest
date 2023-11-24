@@ -233,8 +233,21 @@ menuIconElement
     menuIconElement.classList.toggle('menu-icon-active');
     
     if (menuIconElement.classList.contains('menu-icon-active')){
-      morePagesElement.style.display = 'none';
+      morePagesElement.classList.add('more-pages-active');
     } else {
-      morePagesElement.style.display = 'flex';
+      morePagesElement.classList.remove('more-pages-active');
+    }
+  });
+
+  const searchIcon = document.querySelector('.search-icon');
+document.querySelector('.search-icon')
+  .addEventListener('click', () => {
+    const searchContainer = document.querySelector('.search-container');
+    searchIcon.classList.toggle('search-active');
+
+    if (searchIcon.classList.contains('search-active')){
+      searchContainer.style.display = 'flex';
+    } else {
+      searchContainer.style.display = 'none';
     }
   });
