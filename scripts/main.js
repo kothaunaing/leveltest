@@ -246,15 +246,13 @@ menuIconElement
     }
   });
 
-  const searchIcon = document.querySelector('.search-icon');
+  const searchContainer = document.querySelector('.search-container');
 document.querySelector('.search-icon')
   .addEventListener('click', () => {
-    const searchContainer = document.querySelector('.search-container');
-    searchIcon.classList.toggle('search-active');
+      searchContainer.classList.add('search-container-active');
+  });
 
-    if (searchIcon.classList.contains('search-active')){
-      searchContainer.style.display = 'flex';
-    } else {
-      searchContainer.style.display = 'none';
-    }
+document.querySelector('.close-search-icon')
+  .addEventListener('click', () => {
+    searchContainer.classList.remove('search-container-active');
   });
