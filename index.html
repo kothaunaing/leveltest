@@ -1,63 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>English Level Test</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="icon" href="images/logo square.jpg" type="image/jpg">
-  </head>
-  <body>
-    <div class="header">
-      <div class="left-section">
-        <img class="sea-logo" src="images/logo square.png" />
-        <div>STAR EDUCATION ACADEMY (SEA)</div>
-      </div>
-      <div class="right-section">
-        <img class="search-icon js-search-icon" src="images/search-icon.png">
-        <img class="menu-icon js-menu-icon" src="images/menu-icon.png">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Level Test</title>
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="icon" href="images/logo square.jpg" type="image/jpg" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="left-section">
+      <img class="sea-logo" src="images/logo square.png" />
+      <div>STAR EDUCATION ACADEMY (SEA)</div>
+    </div>
+    <div class="right-section">
+      <img class="search-icon js-search-icon" src="images/search-icon.png" />
+      <img class="menu-icon js-menu-icon" src="images/menu-icon.png" />
+    </div>
+  </div>
+
+  <div class="more-pages js-more-pages">
+    <div>Home</div>
+    <div>About</div>
+    <div>Contact</div>
+    <div>English Level Test</div>
+  </div>
+
+  <div class="search-container">
+    <input class="search-input" placeholder="Search" />
+    <img class="close-search-icon" src="images/close-icon.png" />
+  </div>
+
+  <main class="container">
+    <div class="title" id="test-title"></div>
+    <div class="app-display"></div>
+  </main>
+
+  <footer class="footer">
+    <div>SEA &copy Copyright 2023</div>
+    <div>All rights reserved.</div>
+    <div>
+      Author:
+      <a class="fb-link" href="https://facebook.com/kothaunaing">
+        Than Aung Naing
+      </a>
+    </div>
+  </footer>
+
+  <div class="confirm-dialogue js-confirm-dialogue">
+    <div class="confirm-message">
+      <div>Are you sure to stop ?</div>
+      <div class="confirm-buttons">
+        <button class="js-yes-button">Yes</button>
+        <button class="js-no-button">No</button>
       </div>
     </div>
+  </div>
 
-    <div class="more-pages js-more-pages">
-      <div>Home</div>
-      <div>About</div>
-      <div>Contact</div>
-      <div>English Level Test</div>
-    </div>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0X5FQ2PTPY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-0X5FQ2PTPY');
+  </script>
 
-    <div class="search-container">
-        <input class="search-input" placeholder="Search">
-        <img class="close-search-icon" src="images/close-icon.png">
-    </div>
+  <script src="library/dayjs.min.js"></script>
+  <script type="module" src="scripts/main.js"></script>
+</body>
 
-    <main class="container">
-      <div class="title" id="test-title"></div>
-      <div class="app-display">
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div>SEA &copy Copyright 2023</div>
-      <div>All rights reserved.</div>
-      <div>Author: 
-        <a class="fb-link" href="https://facebook.com/kothaunaing">
-          Than Aung Naing
-        </a>
-      </div>
-    </footer>
-
-    <div class="confirm-dialogue js-confirm-dialogue">
-      <div class="confirm-message">
-        <div>Are you sure to stop ?</div>
-        <div class="confirm-buttons">
-          <button class="js-yes-button">Yes</button>
-          <button class="js-no-button">No</button>
-        </div>
-        </div>
-    </div>
-
-    <script src="library/dayjs.min.js"></script>
-    <script type="module" src="scripts/main.js"></script>
-  </body>
 </html>
