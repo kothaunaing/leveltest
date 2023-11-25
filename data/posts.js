@@ -7,6 +7,7 @@ export const posts = [
       'image2.jpg',
       'image3.jpg',
       'image4.jpg',
+      'image10.jpg'
     ],
   }
 ];
