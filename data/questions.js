@@ -750,7 +750,6 @@ export function userScoresHTML() {
     `
   <div class="complete-container">
     <div class="complete-message">Well done for completing the test!</div>
-    <!-- <div class="complete-message">You spent ${minute} minutes and ${second} seconds </div> -->
     <div class="scores">Your score is ${calUserScores()} out of ${questions.length}.</div>
     <div class="your-level">And your English level is ${calLevel()}.</div>
     <button class="review-button">Review your answers</button>
