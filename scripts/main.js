@@ -6,6 +6,8 @@ import {
   removeUserAnswers
 } from "../data/questions.js";
 
+// import { changeTime, removeTimer } from "./timer.js";
+
 let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
 let currentQuestions = JSON.parse(localStorage.getItem('current-questions')) || leftQuestions.splice(0, 5);
 let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) || 5;
@@ -13,6 +15,7 @@ const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
 
 renderHTML();
+//changeTime();
 
 if (userResults.length !== 0) {
   userScoresHTML();
@@ -81,7 +84,7 @@ export function renderHTML() {
     `;
 
   checkIfcompleteTheTest();
-  
+
   document.querySelectorAll('.js-choice-container')
     .forEach((element) => {
       element.addEventListener('click', () => {
@@ -238,18 +241,18 @@ const menuIconElement = document.querySelector('.js-menu-icon')
 menuIconElement
   .addEventListener('click', () => {
     menuIconElement.classList.toggle('menu-icon-active');
-    
-    if (menuIconElement.classList.contains('menu-icon-active')){
+
+    if (menuIconElement.classList.contains('menu-icon-active')) {
       morePagesElement.classList.add('more-pages-active');
     } else {
       morePagesElement.classList.remove('more-pages-active');
     }
   });
 
-  const searchContainer = document.querySelector('.search-container');
+const searchContainer = document.querySelector('.search-container');
 document.querySelector('.search-icon')
   .addEventListener('click', () => {
-      searchContainer.classList.add('search-container-active');
+    searchContainer.classList.add('search-container-active');
   });
 
 document.querySelector('.close-search-icon')
@@ -262,7 +265,7 @@ document.querySelector('.close-search-icon')
 const darkModeButton = document.querySelector('.dark-mode-button');
 let theme = localStorage.getItem('theme') || 'light-mode';
 
-if (theme === 'dark-mode'){
+if (theme === 'dark-mode') {
   changeToDarkMode();
   darkModeButton.classList.toggle('dark-mode-button-active');
   changeDarkModeIcon();
@@ -285,11 +288,12 @@ function changeToDarkMode() {
   document.querySelector('.footer').classList.toggle('dark-mode');
   document.querySelector('.js-more-pages').classList.toggle('dark-mode');
   document.querySelector('.confirm-message').classList.toggle('dark-mode');
+  document.querySelector('.search-input').classList.toggle('search-bar-dark-mode');
 }
 
 function changeDarkModeIcon() {
   let image;
-  if (darkModeButton.classList.contains('dark-mode-button-active')){
+  if (darkModeButton.classList.contains('dark-mode-button-active')) {
     image = 'light';
     theme = 'dark-mode';
   } else {
@@ -297,7 +301,7 @@ function changeDarkModeIcon() {
     theme = 'light-mode';
   }
   darkModeButton
-  .innerHTML = `
+    .innerHTML = `
   <img class="dark-mode-icon" src="images/${image}-icon.png">
   `;
 }

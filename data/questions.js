@@ -1,3 +1,5 @@
+//import {hour, minute, second, removeTimer} from '../scripts/timer.js';
+
 export const questions = [
   {
     number: '1',
@@ -748,6 +750,7 @@ export function userScoresHTML() {
     `
   <div class="complete-container">
     <div class="complete-message">Well done for completing the test!</div>
+    <!-- <div class="complete-message">You spent ${minute} minutes and ${second} seconds </div> -->
     <div class="scores">Your score is ${calUserScores()} out of ${questions.length}.</div>
     <div class="your-level">And your English level is ${calLevel()}.</div>
     <button class="review-button">Review your answers</button>
@@ -769,6 +772,7 @@ export function userScoresHTML() {
     .addEventListener('click', () => {
       resetUserResults();
       refreshPage();
+      removeTimer();
     });
 }
 
@@ -868,7 +872,7 @@ function reviewYourAnswersHTML() {
           top: 0,
           behavior: 'smooth'
         }
-      )
+      );
     });
 
   const bottomButtonElement = document.querySelector('.to-bottom-button');
