@@ -547,3 +547,14 @@ a {
   background-color: white;
   color: black;
 }
+
+.scroll-percentage {
+  position: fixed;
+  height: 6px;
+  width: 0%;
+  background-color: rgb(141, 141, 141);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+}

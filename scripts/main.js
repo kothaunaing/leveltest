@@ -305,3 +305,12 @@ function changeDarkModeIcon() {
   <img class="dark-mode-icon" src="images/${image}-icon.png">
   `;
 }
+
+window.addEventListener('scroll', () => {
+  const totalHeight = document.documentElement.scrollHeight - 700;
+  const currentHeight = document.documentElement.scrollTop;
+  const percentage = ( currentHeight / totalHeight) * 100;
+
+  document.querySelector('.js-scroll-percentage')
+    .style.width = `${percentage}%`;
+});
