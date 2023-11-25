@@ -144,10 +144,6 @@ body {
   cursor: pointer;
 }
 
-.dark-mode-button:hover {
-  border: 1px solid gray;
-}
-
 .dark-mode-icon {
   height: 30px;
   box-shadow: 0 0 3px rgb(151, 151, 151);
