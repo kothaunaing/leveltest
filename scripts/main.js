@@ -6,6 +6,8 @@ import {
   removeUserAnswers
 } from "../data/questions.js";
 
+import {pagesHTML} from '../data/more-pages.js';
+
 // import { changeTime, removeTimer } from "./timer.js";
 
 let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
@@ -14,14 +16,15 @@ let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) |
 const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
 
-renderHTML();
+levelTestHTML();
+pagesHTML();
 //changeTime();
 
 if (userResults.length !== 0) {
   userScoresHTML();
 }
 
-export function renderHTML() {
+export function levelTestHTML() {
   const currentPage = calculateCurrentPage();
 
   let html = '';
@@ -57,6 +60,8 @@ export function renderHTML() {
   });
 
   document.querySelector('.title')
+    .style.display = 'block';
+  document.querySelector('.title')
     .innerHTML = 'ENGLISH LEVEL TEST';
 
   document.querySelector('.app-display')
@@ -90,7 +95,7 @@ export function renderHTML() {
       element.addEventListener('click', () => {
         const { userAnswer, number, userChoice } = element.dataset;
         addToUserAnswers(userAnswer, number, userChoice);
-        renderHTML();
+        levelTestHTML();
         saveToLocalStorage();
         saveUserAnswers();
         checkIfcompleteTheTest();
@@ -170,7 +175,7 @@ function calculateCurrentQuestions() {
 
 function goToNextPage() {
   calculateCurrentQuestions();
-  renderHTML();
+  levelTestHTML();
 }
 
 let timeOutId;
@@ -309,7 +314,7 @@ function changeDarkModeIcon() {
 window.addEventListener('scroll', () => {
   const totalHeight = document.documentElement.scrollHeight - 700;
   const currentHeight = document.documentElement.scrollTop;
-  const percentage = ( currentHeight / totalHeight) * 100;
+  const percentage = (currentHeight / totalHeight) * 100;
 
   document.querySelector('.js-scroll-percentage')
     .style.width = `${percentage}%`;
