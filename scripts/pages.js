@@ -1,4 +1,5 @@
 import { posts } from "../data/posts.js";
+import {today} from '../scripts/main.js';
 
 export function homeHTML() {
   let html = '';
@@ -7,7 +8,6 @@ export function homeHTML() {
     const { text, day, images } = post;
 
     html += `
-    <div class="home-container">
     <div class="posts">
       <div class="post-top-section">
         <img class="sea-icon" src="images/logo square.jpg">
@@ -23,14 +23,17 @@ export function homeHTML() {
       </div>
     ${imageHTML(images)}
     </div>
-  </div>
     `;
   });
 
   document.querySelector('.title')
     .style.display = 'none';
   document.querySelector('.app-display')
-    .innerHTML = html;
+    .innerHTML = 
+    `<div class="home-container">
+    ${html}
+    </div>
+    `;
 
   document.querySelectorAll('.post-image')
     .forEach((element) => {
@@ -45,6 +48,11 @@ export function homeHTML() {
       .addEventListener('click', () => {
         hideImageViewer();
       });
+
+      const currentYear = today.format('YYYY');
+      const currentMonth = today.format('M');
+      const currentDay = today
+      console.log(currentMonth);
 }
 
 const imageViewer = document.querySelector('.image-viewer');

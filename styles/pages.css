@@ -51,9 +51,21 @@
   }
 }
 
+@media (max-width: 400px) {
+  .posts {
+    min-width: 300px;
+  }
+}
+
+@media (min-width: 401px) {
+  .posts {
+    min-width: 350px;
+  }
+}
+
 @media (min-width: 451px) and (max-width: 550px){
   .posts {
-    width: 350px;
+    width: 400px;
   }
 }
 
@@ -64,8 +76,8 @@
 }
 
 .post-image {
-  height: 120px;
-  width: auto;
+  height: 100%;
+  width: 100%;
   border-radius: 3px;
   cursor: pointer;
 }

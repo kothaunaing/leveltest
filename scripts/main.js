@@ -15,9 +15,11 @@ let currentQuestions = JSON.parse(localStorage.getItem('current-questions')) || 
 let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) || 5;
 const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
+export const today = dayjs();
 
 levelTestHTML();
 pagesHTML();
+showCurrrentYear();
 //changeTime();
 
 if (userResults.length !== 0) {
@@ -66,25 +68,27 @@ export function levelTestHTML() {
 
   document.querySelector('.app-display')
     .innerHTML = `
-    <div class="error-message">
-      <img class="error-icon" src="images/error-icon.png">
-      <div>You must answer all questions before proceeding.</div>
-    </div>
-    <div class="current-page">
-      <div>Page ${currentPage} of ${totalPages}</div>
-      <button class="stop-button js-stop-button">Stop</button>
-    </div>
-    <div class="progress-bar-container">
-      <div class="progress-bar" style="width: ${(userAnswers.length / questions.length) * 100}%;">
+    <div class="level-test-html">
+      <div class="error-message">
+        <img class="error-icon" src="images/error-icon.png">
+        <div>You must answer all questions before proceeding.</div>
       </div>
-      <div class="progress-percentage">
-      ${Math.round(((userAnswers.length / questions.length) * 100))}%
+      <div class="current-page">
+        <div>Page ${currentPage} of ${totalPages}</div>
+        <button class="stop-button js-stop-button">Stop</button>
       </div>
-    </div>
-    ${html}
-    <div class="buttons">
-      <button class="next-button">Next</button>
-      <button class="finish-button">Finish</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar" style="width: ${(userAnswers.length / questions.length) * 100}%;">
+        </div>
+        <div class="progress-percentage">
+        ${Math.round(((userAnswers.length / questions.length) * 100))}%
+        </div>
+      </div>
+      ${html}
+      <div class="buttons">
+        <button class="next-button">Next</button>
+        <button class="finish-button">Finish</button>
+      </div>
     </div>
     `;
 
@@ -319,3 +323,10 @@ window.addEventListener('scroll', () => {
   document.querySelector('.js-scroll-percentage')
     .style.width = `${percentage}%`;
 });
+
+function showCurrrentYear(){
+  const currentYear = today.format('YYYY');
+
+  document.querySelector('.current-year')
+    .innerHTML = currentYear;
+}
