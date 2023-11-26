@@ -835,18 +835,20 @@ function reviewYourAnswersHTML() {
 
   document.querySelector('.app-display')
     .innerHTML = `
+    <div class="level-test-html">
     ${html}
-    <div>
-    <button class="back-to-results-btn">
-      Back to results
-    </button>
+      <div>
+      <button class="back-to-results-btn">
+        Back to results
+      </button>
+      </div>
+      <button class="to-bottom-button auto-scroll-buttons">
+        <img class="arrow-icon" src="images/down-arrow.png">
+      </button>
+      <button class="to-top-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/up-arrow.png">
+      </button>
     </div>
-    <button class="to-bottom-button auto-scroll-buttons">
-      <img class="arrow-icon" src="images/down-arrow.png">
-    </button>
-    <button class="to-top-button auto-scroll-buttons">
-    <img class="arrow-icon" src="images/up-arrow.png">
-  </button>
     `;
 
   document.querySelector('.back-to-results-btn')

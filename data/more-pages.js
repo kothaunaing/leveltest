@@ -1,5 +1,6 @@
 import { levelTestHTML } from "../scripts/main.js";
 import { homeHTML, aboutHTML, contactHTML } from "../scripts/pages.js";
+import { userResults, userScoresHTML } from "./questions.js";
 
 const pages = [
   {
@@ -55,7 +56,11 @@ export function pagesHTML() {
           pagesHTML();
 
           if (pageName === 'English Level Test'){
-            levelTestHTML();
+            if(userResults.length === 0){
+              levelTestHTML();
+            } else {
+              userScoresHTML();
+            }
           } 
           else if (pageName === 'Home'){
             homeHTML();

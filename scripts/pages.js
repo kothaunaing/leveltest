@@ -38,9 +38,7 @@ export function homeHTML() {
   document.querySelectorAll('.post-image')
     .forEach((element) => {
       element.addEventListener('click', () => {
-        showImageViewer();
-        document.querySelector('.current-image')
-          .src = element.src;
+        showImageViewer(element);
       });
     });
 
@@ -48,16 +46,13 @@ export function homeHTML() {
       .addEventListener('click', () => {
         hideImageViewer();
       });
-
-      const currentYear = today.format('YYYY');
-      const currentMonth = today.format('M');
-      const currentDay = today
-      console.log(currentMonth);
 }
 
 const imageViewer = document.querySelector('.image-viewer');
-function showImageViewer() {
+function showImageViewer(element) {
   imageViewer.style.display = 'flex';
+  const currentImage = document.querySelector('.current-image');
+  currentImage.src = element.src;
 }
 
 function hideImageViewer() {

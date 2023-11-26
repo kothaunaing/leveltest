@@ -9,5 +9,5 @@ export const posts = [
       'image4.jpg',
       'image10.jpg'
     ],
-  }
+  },
 ];
