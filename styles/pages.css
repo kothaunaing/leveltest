@@ -43,9 +43,6 @@
     grid-template-columns: 1fr;
   }
 
-  .post-image {
-    height: 160px;
-  }
   .posts {
     width: 280px;
   }
