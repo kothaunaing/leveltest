@@ -1,11 +1,11 @@
 import { posts } from "../data/posts.js";
-import {today} from '../scripts/main.js';
+import { today } from '../scripts/main.js';
 
 export function homeHTML() {
   let html = '';
 
   posts.forEach((post) => {
-    const { text, day, images } = post;
+    const { caption, day, images, id } = post;
 
     html += `
     <div class="posts">
@@ -19,52 +19,56 @@ export function homeHTML() {
         </div>
       </div>
       <div class="post-middle-section">
-        ${text}
+        ${caption}
       </div>
-    ${imageHTML(images)}
+      <div class="post-bottom-section">
+        ${imageHTML(images, id)}
+      </div>
     </div>
     `;
   });
 
   document.querySelector('.title')
     .style.display = 'none';
-  document.querySelector('.app-display')
-    .innerHTML = 
+   document.querySelector('.app-display')
+    .innerHTML =
     `<div class="home-container">
     ${html}
     </div>
     `;
 
-  document.querySelectorAll('.post-image')
-    .forEach((element) => {
-      element.addEventListener('click', () => {
-        showImageViewer(element);
-      });
-    });
-
-    document.querySelector('.close-image')
-      .addEventListener('click', () => {
-        hideImageViewer();
+    document.querySelectorAll('.post-image-container')
+      .forEach((element) => {
+        element.addEventListener('click', () => {
+          const {postId} = element.dataset;
+          showPostImages(postId);
+        });
       });
 }
 
 const imageViewer = document.querySelector('.image-viewer');
 function showImageViewer(element) {
   imageViewer.style.display = 'flex';
-  const currentImage = document.querySelector('.current-image');
+  let currentImage = document.querySelector('.current-image');
   currentImage.src = element.src;
+
+  if (element.naturalHeight > 1000) {
+    currentImage.classList.add('current-image-active');
+  } else {
+    currentImage.classList.remove('current-image-active');
+  }
 }
 
-function hideImageViewer() {
+/* function hideImageViewer() {
   imageViewer.style.display = 'none';
-}
+} */
 
 export function aboutHTML() {
   document.querySelector('.title')
     .style.display = 'none';
   document.querySelector('.app-display')
     .innerHTML = `
-    <article>
+        <article>
           <p><b>SEA</b> stands for Star Education Academy,
             is an education academy founded by U Mg Aye Kyaw and Daw Sandar Lwin
             in 2015. At <b>SEA</b>, you can study variety of subjects including
@@ -152,21 +156,72 @@ export function contactHTML() {
     `;
 }
 
-function imageHTML(images) {
+function imageHTML(images, id) {
   let html = '';
-
-  images.forEach((image) => {
-    html += `
-      <img class="post-image" src="images/posts/${image}">
-    `;
+  const moreImages = images.length - 4;
+  images.forEach((image, index) => {
+    if (index < 4) {
+      if (index === 3) {
+        html += `
+        <a href="#image-${index+1}">
+        <div class="post-image-container"
+        data-post-id="${id}">
+          <img class="post-image" src="images/posts/1/${image}">
+          <div class="more-images">+${moreImages}</div>
+        </div>
+        </a>
+      `;
+      } else {
+        html += `
+        <a href="#image-${index+1}">
+        <div class="post-image-container"
+        data-post-id="${id}">
+          <img class="post-image" src="images/posts/1/${image}">
+        </div>
+        </a>
+      `;
+      }
+    }
   });
 
   if (images.length === 0) {
     html = '';
   }
 
-  return `
-  <div class="post-bottom-section">
-  ${html}
- </div>`;
+  return html;
+}
+
+function showPostImages(postId){
+  let matchingPost;
+  let html = '';
+
+  posts.forEach((post) => {
+    if (postId === post.id){
+      matchingPost = post;
+    }
+  });
+
+  const { images, id, caption } = matchingPost;
+
+  images.forEach((image, index) => {
+    html += `
+    <img class="post-image" src="images/posts/1/${image}" id="image-${index+1}">
+    `;
+  });
+
+  document.querySelector('.app-display')
+  .innerHTML =
+  `<div class="home-container">
+    <img class="back-icon" src="images/back-icon.png">
+    <div>${caption}</div>
+    <div class="post-images">
+    ${html}
+    </div>
+  </div>
+  `;
+
+  document.querySelector('.back-icon')
+    .addEventListener('click', () => {
+      homeHTML();
+    });
 }
