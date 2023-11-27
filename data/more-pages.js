@@ -55,20 +55,20 @@ export function pagesHTML() {
           matchingPage.active = true;
           pagesHTML();
 
-          if (pageName === 'English Level Test'){
-            if(userResults.length === 0){
+          if (pageName === 'English Level Test') {
+            if (userResults.length === 0) {
               levelTestHTML();
             } else {
               userScoresHTML();
             }
-          } 
-          else if (pageName === 'Home'){
+          }
+          else if (pageName === 'Home') {
             homeHTML();
-          } 
-          else if (pageName === 'About'){
+          }
+          else if (pageName === 'About') {
             aboutHTML();
           }
-          else if (pageName === 'Contact'){
+          else if (pageName === 'Contact') {
             contactHTML();
           }
         });

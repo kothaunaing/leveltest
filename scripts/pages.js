@@ -167,7 +167,7 @@ function imageHTML(images, id) {
         <a href="#image-${index + 1}">
         <div class="post-image-container"
         data-post-id="${id}">
-          <img class="post-image" src="images/posts/1/${image}">
+          <img class="post-image" src="images/posts/${id}/${image}">
           <div class="more-images">+${moreImages}</div>
         </div>
         </a>
@@ -177,7 +177,7 @@ function imageHTML(images, id) {
         <a href="#image-${index + 1}">
         <div class="post-image-container"
         data-post-id="${id}">
-          <img class="post-image" src="images/posts/1/${image}">
+          <img class="post-image" src="images/posts/${id}/${image}">
         </div>
         </a>
       `;
@@ -206,7 +206,7 @@ function showPostImages(postId) {
 
   images.forEach((image, index) => {
     html += `
-    <img class="post-image" src="images/posts/1/${image}" id="image-${index + 1}">
+    <img class="post-image" src="images/posts/${id}/${image}" id="image-${index + 1}">
     `;
   });
 

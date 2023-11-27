@@ -15,5 +15,5 @@ export const posts = [
       'image9.jpg',
       'image10.jpg'
     ],
-  },
+  }
 ];
