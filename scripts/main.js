@@ -16,18 +16,18 @@ let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) |
 const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
 export const today = dayjs();
+let currentPage;
 
 levelTestHTML();
 pagesHTML();
 showCurrrentYear();
-//changeTime();
 
 if (userResults.length !== 0) {
   userScoresHTML();
 }
 
 export function levelTestHTML() {
-  const currentPage = calculateCurrentPage();
+  currentPage = calculateCurrentPage();
 
   let html = '';
 
@@ -182,7 +182,7 @@ function goToNextPage() {
   levelTestHTML();
 }
 
-let timeOutId;
+let timeOutI//d;
 function stayInThisPage() {
   const element = document.querySelector('.error-message');
 

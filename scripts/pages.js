@@ -5,7 +5,7 @@ export function homeHTML() {
   let html = '';
 
   posts.forEach((post) => {
-    const { caption, day, images, id } = post;
+    const { caption, uploadTime, images, id } = post;
 
     html += `
     <div class="posts">
@@ -13,8 +13,8 @@ export function homeHTML() {
         <img class="sea-icon" src="images/logo square.jpg">
         <div>
           <div class="sea-name">Star Eduaction Academy (SEA)</div>
-          <div class="day-counter">
-            ${day}
+          <div class="day-counter" data-upload-time="${uploadTime}">
+            ${agoFormat(uploadTime)}
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export function homeHTML() {
    document.querySelector('.app-display')
     .innerHTML =
     `<div class="home-container">
-    ${html}
+      ${html}
     </div>
     `;
 
@@ -44,24 +44,16 @@ export function homeHTML() {
           showPostImages(postId);
         });
       });
+
+      setInterval(() => {
+        document.querySelectorAll('.day-counter')
+          .forEach((element) => {
+            const {uploadTime} = element.dataset;
+            element.innerHTML = agoFormat(Number(uploadTime));
+          });
+      }, 1000);
+
 }
-
-const imageViewer = document.querySelector('.image-viewer');
-function showImageViewer(element) {
-  imageViewer.style.display = 'flex';
-  let currentImage = document.querySelector('.current-image');
-  currentImage.src = element.src;
-
-  if (element.naturalHeight > 1000) {
-    currentImage.classList.add('current-image-active');
-  } else {
-    currentImage.classList.remove('current-image-active');
-  }
-}
-
-/* function hideImageViewer() {
-  imageViewer.style.display = 'none';
-} */
 
 export function aboutHTML() {
   document.querySelector('.title')
@@ -224,4 +216,35 @@ function showPostImages(postId){
     .addEventListener('click', () => {
       homeHTML();
     });
+}
+
+function agoFormat(uploadTime){
+  const currentTime = new Date().getTime();
+  const timeDifference = currentTime - uploadTime;
+
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (years > 0){
+    return years === 1 ? 'a year ago' : `${years} years ago`;
+  }
+  else if (months > 0){
+    return months === 1 ? 'a month ago' : `${months} months ago`;
+  }
+  else if (days > 0){
+    return days === 1 ? 'a day ago' : `${days} days ago`;
+  }
+  else if (hours > 0){
+    return hours === 1 ? 'an hour ago' : `${hours} hours ago`;
+  }
+  else if (minutes > 0){
+    return minutes === 1 ? 'a minute ago' : `${minutes} minutes ago`;
+  }
+  else if (seconds > 0){
+    return seconds === 1 ? 'a second ago' : `${seconds} seconds ago`;
+  }
 }

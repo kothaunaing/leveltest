@@ -2,7 +2,7 @@ export const posts = [
   {
     id: '1',
     caption: 'SEA မှကျောင်းသားများအားတွေ့ရစဉ်',
-    day: '2 days ago',
+    uploadTime: 1701066382828,
     images: [
       'image1.jpg',
       'image2.jpg',
