@@ -8,11 +8,11 @@ const pages = [
     active: false
   },
   {
-    title: 'About',
+    title: 'Contact',
     active: false
   },
   {
-    title: 'Contact',
+    title: 'About',
     active: false
   },
   {
