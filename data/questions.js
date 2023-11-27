@@ -856,6 +856,11 @@ function reviewYourAnswersHTML() {
       userScoresHTML();
     });
 
+  scrollingFeature();
+
+}
+
+export function scrollingFeature() {
   document.querySelector('.to-bottom-button')
     .addEventListener('click', () => {
       scrollTo(
@@ -898,7 +903,6 @@ function reviewYourAnswersHTML() {
         .style.display = 'none';
     }
   });
-
 }
 
 function resetUserResults() {

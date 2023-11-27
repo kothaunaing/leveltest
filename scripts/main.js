@@ -330,3 +330,5 @@ function showCurrrentYear(){
   document.querySelector('.current-year')
     .innerHTML = currentYear;
 }
+
+//console.log(new Date().getTime())

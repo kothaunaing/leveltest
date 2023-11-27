@@ -1,5 +1,6 @@
 import { posts } from "../data/posts.js";
 import { today } from '../scripts/main.js';
+import { scrollingFeature } from "../data/questions.js";
 
 export function homeHTML() {
   let html = '';
@@ -30,28 +31,36 @@ export function homeHTML() {
 
   document.querySelector('.title')
     .style.display = 'none';
-   document.querySelector('.app-display')
+  document.querySelector('.app-display')
     .innerHTML =
     `<div class="home-container">
       ${html}
     </div>
+    <button class="to-bottom-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/down-arrow.png">
+    </button>
+    <button class="to-top-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/up-arrow.png">
+    </button>
     `;
 
-    document.querySelectorAll('.post-image-container')
-      .forEach((element) => {
-        element.addEventListener('click', () => {
-          const {postId} = element.dataset;
-          showPostImages(postId);
-        });
+  document.querySelectorAll('.post-image-container')
+    .forEach((element) => {
+      element.addEventListener('click', () => {
+        const { postId } = element.dataset;
+        showPostImages(postId);
       });
+    });
 
-      setInterval(() => {
-        document.querySelectorAll('.day-counter')
-          .forEach((element) => {
-            const {uploadTime} = element.dataset;
-            element.innerHTML = agoFormat(Number(uploadTime));
-          });
-      }, 1000);
+  setInterval(() => {
+    document.querySelectorAll('.day-counter')
+      .forEach((element) => {
+        const { uploadTime } = element.dataset;
+        element.innerHTML = agoFormat(Number(uploadTime));
+      });
+  }, 1000);
+
+  scrollingFeature();
 
 }
 
@@ -155,7 +164,7 @@ function imageHTML(images, id) {
     if (index < 4) {
       if (index === 3) {
         html += `
-        <a href="#image-${index+1}">
+        <a href="#image-${index + 1}">
         <div class="post-image-container"
         data-post-id="${id}">
           <img class="post-image" src="images/posts/1/${image}">
@@ -165,7 +174,7 @@ function imageHTML(images, id) {
       `;
       } else {
         html += `
-        <a href="#image-${index+1}">
+        <a href="#image-${index + 1}">
         <div class="post-image-container"
         data-post-id="${id}">
           <img class="post-image" src="images/posts/1/${image}">
@@ -183,12 +192,12 @@ function imageHTML(images, id) {
   return html;
 }
 
-function showPostImages(postId){
+function showPostImages(postId) {
   let matchingPost;
   let html = '';
 
   posts.forEach((post) => {
-    if (postId === post.id){
+    if (postId === post.id) {
       matchingPost = post;
     }
   });
@@ -197,28 +206,35 @@ function showPostImages(postId){
 
   images.forEach((image, index) => {
     html += `
-    <img class="post-image" src="images/posts/1/${image}" id="image-${index+1}">
+    <img class="post-image" src="images/posts/1/${image}" id="image-${index + 1}">
     `;
   });
 
   document.querySelector('.app-display')
-  .innerHTML =
-  `<div class="home-container">
+    .innerHTML =
+    `<div class="home-container">
     <img class="back-icon" src="images/back-icon.png">
     <div>${caption}</div>
     <div class="post-images">
     ${html}
     </div>
-  </div>
+    </div>
+    <button class="to-bottom-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/down-arrow.png">
+    </button>
+    <button class="to-top-button auto-scroll-buttons">
+     <img class="arrow-icon" src="images/up-arrow.png">
+    </button>
   `;
 
   document.querySelector('.back-icon')
     .addEventListener('click', () => {
       homeHTML();
     });
+    scrollingFeature();
 }
 
-function agoFormat(uploadTime){
+function agoFormat(uploadTime) {
   const currentTime = new Date().getTime();
   const timeDifference = currentTime - uploadTime;
 
@@ -229,22 +245,22 @@ function agoFormat(uploadTime){
   const months = Math.floor(days / 30);
   const years = Math.floor(months / 12);
 
-  if (years > 0){
+  if (years > 0) {
     return years === 1 ? 'a year ago' : `${years} years ago`;
   }
-  else if (months > 0){
+  else if (months > 0) {
     return months === 1 ? 'a month ago' : `${months} months ago`;
   }
-  else if (days > 0){
+  else if (days > 0) {
     return days === 1 ? 'a day ago' : `${days} days ago`;
   }
-  else if (hours > 0){
+  else if (hours > 0) {
     return hours === 1 ? 'an hour ago' : `${hours} hours ago`;
   }
-  else if (minutes > 0){
+  else if (minutes > 0) {
     return minutes === 1 ? 'a minute ago' : `${minutes} minutes ago`;
   }
-  else if (seconds > 0){
+  else if (seconds > 0) {
     return seconds === 1 ? 'a second ago' : `${seconds} seconds ago`;
   }
 }
