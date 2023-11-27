@@ -182,7 +182,7 @@ function goToNextPage() {
   levelTestHTML();
 }
 
-let timeOutI//d;
+let timeOutId;
 function stayInThisPage() {
   const element = document.querySelector('.error-message');
 
@@ -245,7 +245,9 @@ function stopButtonFunction(currentPage) {
 }
 
 const morePagesElement = document.querySelector('.js-more-pages');
-const menuIconElement = document.querySelector('.js-menu-icon')
+const menuIconElement = document.querySelector('.js-menu-icon');
+morePagesElement.style.marginTop = `-${morePagesElement.scrollHeight}px`;
+
 
 menuIconElement
   .addEventListener('click', () => {
@@ -253,8 +255,10 @@ menuIconElement
 
     if (menuIconElement.classList.contains('menu-icon-active')) {
       morePagesElement.classList.add('more-pages-active');
+      morePagesElement.style.marginTop = `8px`;
     } else {
       morePagesElement.classList.remove('more-pages-active');
+      morePagesElement.style.marginTop = `-${morePagesElement.scrollHeight}px`;
     }
   });
 

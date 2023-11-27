@@ -857,7 +857,6 @@ function reviewYourAnswersHTML() {
     });
 
   scrollingFeature();
-
 }
 
 export function scrollingFeature() {
