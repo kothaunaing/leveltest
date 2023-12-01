@@ -5,16 +5,17 @@ import {
   userResults, refreshPage,
   removeUserAnswers
 } from "../data/questions.js";
-
-import {pagesHTML} from '../data/more-pages.js';
+import { pagesHTML, pages } from '../data/more-pages.js';
+import { studentsHTML, homeHTML, aboutHTML, contactHTML } from "../scripts/pages.js";
 
 // import { changeTime, removeTimer } from "./timer.js";
 
-let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
-let currentQuestions = JSON.parse(localStorage.getItem('current-questions')) || leftQuestions.splice(0, 5);
-let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) || 5;
 const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
+
+let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
+let currentQuestions = JSON.parse(localStorage.getItem('current-questions')) || leftQuestions.splice(0, questionsPerPage);
+let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) || questionsPerPage;
 export const today = dayjs();
 let currentPage;
 
@@ -173,7 +174,7 @@ function calculateCurrentPage() {
 }
 
 function calculateCurrentQuestions() {
-  currentQuestions = leftQuestions.splice(0, 5);
+  currentQuestions = leftQuestions.splice(0, questionsPerPage);
   answeredQuestions += currentQuestions.length;
 }
 
@@ -266,12 +267,70 @@ const searchContainer = document.querySelector('.search-container');
 document.querySelector('.search-icon')
   .addEventListener('click', () => {
     searchContainer.classList.add('search-container-active');
+    studentsHTML();
   });
 
 document.querySelector('.close-search-icon')
   .addEventListener('click', () => {
     searchContainer.classList.remove('search-container-active');
+    goToActivePage();
   });
+
+function goToActivePage() {
+
+  let activePage;
+
+  pages.forEach((page) => {
+    if (page.active) {
+      activePage = page;
+    }
+  });
+
+  if (activePage.title === 'Home') {
+    homeHTML();
+  }
+  else if (activePage.title === 'About') {
+    aboutHTML();
+  }
+  else if (activePage.title === 'Contact') {
+    contactHTML();
+  }
+  else if (activePage.title === 'English Level Test') {
+    levelTestHTML();
+  }
+}
+
+const searchElement = document.querySelector('.search-input');
+
+searchElement.addEventListener('input', () => {
+  showAndHideClearButton();
+  studentsHTML();
+});
+
+searchElement.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    studentsHTML();
+  }
+});
+
+const clearButton = document.querySelector('.clear-icon-right');
+
+clearButton
+  .addEventListener('click', () => {
+    searchElement.value = '';
+    showAndHideClearButton();
+    studentsHTML();
+  });
+
+function showAndHideClearButton() {
+  const searchValue = searchElement.value;
+
+  if (searchValue.length) {
+    clearButton.style.display = 'block';
+  } else {
+    clearButton.style.display = 'none';
+  }
+}
 
 // Dark Mode Feature
 
@@ -328,7 +387,7 @@ window.addEventListener('scroll', () => {
     .style.width = `${percentage}%`;
 });
 
-function showCurrrentYear(){
+function showCurrrentYear() {
   const currentYear = today.format('YYYY');
 
   document.querySelector('.current-year')

@@ -1,6 +1,7 @@
 import { posts } from "../data/posts.js";
 import { today } from '../scripts/main.js';
 import { scrollingFeature } from "../data/questions.js";
+import { allStudents } from '../data/students.js';
 
 export function homeHTML() {
   let html = '';
@@ -231,7 +232,7 @@ function showPostImages(postId) {
     .addEventListener('click', () => {
       homeHTML();
     });
-    scrollingFeature();
+  scrollingFeature();
 }
 
 function agoFormat(uploadTime) {
@@ -242,7 +243,6 @@ function agoFormat(uploadTime) {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
   const months = Math.floor(days / 30);
   const years = Math.floor(months / 12);
 
@@ -252,9 +252,6 @@ function agoFormat(uploadTime) {
   else if (months > 0) {
     return months === 1 ? 'a month ago' : `${months} months ago`;
   }
-  else if (weeks > 0) {
-    return weeks === 1 ? 'a week ago' : `${weeks} weeks ago`;
-    }
   else if (days > 0) {
     return days === 1 ? 'a day ago' : `${days} days ago`;
   }
@@ -267,4 +264,65 @@ function agoFormat(uploadTime) {
   else if (seconds > 0) {
     return seconds === 1 ? 'a second ago' : `${seconds} seconds ago`;
   }
+}
+
+export function studentsHTML() {
+  document.querySelector('.title')
+    .style.display = 'none';
+  document.querySelector('.app-display')
+    .innerHTML = searchHTML();
+}
+
+let foundStudents = [];
+
+function searchHTML() {
+  let html = '';
+  const searchValue = document.querySelector('.search-input').value.toLowerCase();
+
+
+  foundStudents = allStudents.filter((student) => {
+    return student.name.toLowerCase().includes(searchValue);
+  });
+
+  foundStudents.sort((a, b) => {
+    return a.name.localeCompare(b.name);
+  });
+  
+  foundStudents.forEach((student, index) => {
+    const { name, age, image, grade } = student;
+
+    html += `
+    <div class="student">
+      <div class="student-number">${index + 1}</div>
+      <div>
+        <img src="images/${image}" class="student-pic">
+      </div>
+      <div class="student-info">
+        <div>${name}</div>
+        <div>${age} years old</div>
+        <div>${grade}</div>
+      </div>
+    </div>
+    `;
+  });
+
+  let message;
+  if (foundStudents.length === 1) {
+    message = `Found ${foundStudents.length} student`;
+  }
+  else if (foundStudents.length > 1) {
+    message = `Found ${foundStudents.length} students`;
+  }
+  else if (foundStudents.length === 0) {
+    message = `No students found !`;
+  }
+
+  return `
+    <div class="nav-bar">
+      <div class="total-student">${message}</div>
+    </div>
+    <div class="display-students">
+      ${html}
+    </div>
+    `;
 }

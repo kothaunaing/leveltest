@@ -2,7 +2,7 @@ import { levelTestHTML } from "../scripts/main.js";
 import { homeHTML, aboutHTML, contactHTML } from "../scripts/pages.js";
 import { userResults, userScoresHTML } from "./questions.js";
 
-const pages = [
+export const pages = [
   {
     title: 'Home',
     active: false
