@@ -1,5 +1,5 @@
 import { levelTestHTML } from "../scripts/main.js";
-import { homeHTML, aboutHTML, contactHTML } from "../scripts/pages.js";
+import { homeHTML, aboutHTML, contactHTML, agoFormat } from "../scripts/pages.js";
 import { userResults, userScoresHTML } from "./questions.js";
 
 export const pages = [
@@ -36,7 +36,13 @@ export function pagesHTML() {
   })
 
   document.querySelector('.pages-container')
-    .innerHTML = html;
+    .innerHTML = `
+    ${html}
+    <div class="last-updated"></div>
+    `;
+
+  document.querySelector('.last-updated')
+    .innerHTML = `Last updated - ${agoFormat(1701614960968)}`;
 
   document.querySelectorAll('.page')
     .forEach((element) => {
@@ -55,22 +61,26 @@ export function pagesHTML() {
           matchingPage.active = true;
           pagesHTML();
 
-          if (pageName === 'English Level Test') {
-            if (userResults.length === 0) {
-              levelTestHTML();
-            } else {
-              userScoresHTML();
-            }
-          }
-          else if (pageName === 'Home') {
-            homeHTML();
-          }
-          else if (pageName === 'About') {
-            aboutHTML();
-          }
-          else if (pageName === 'Contact') {
-            contactHTML();
-          }
+          goToPages(pageName);
         });
     });
+}
+
+export function goToPages(pageName) {
+  if (pageName === 'English Level Test') {
+    if (userResults.length === 0) {
+      levelTestHTML();
+    } else {
+      userScoresHTML();
+    }
+  }
+  else if (pageName === 'Home') {
+    homeHTML();
+  }
+  else if (pageName === 'About') {
+    aboutHTML();
+  }
+  else if (pageName === 'Contact') {
+    contactHTML();
+  }
 }

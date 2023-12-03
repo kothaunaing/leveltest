@@ -14,7 +14,7 @@ export function homeHTML() {
       <div class="post-top-section">
         <img class="sea-icon" src="images/logo square.jpg">
         <div>
-          <div class="sea-name">Star Eduaction Academy (SEA)</div>
+          <div class="sea-name">Star Education Academy (SEA)</div>
           <div class="day-counter" data-upload-time="${uploadTime}">
             ${agoFormat(uploadTime)}
           </div>
@@ -53,16 +53,85 @@ export function homeHTML() {
       });
     });
 
-  setInterval(() => {
-    document.querySelectorAll('.day-counter')
-      .forEach((element) => {
-        const { uploadTime } = element.dataset;
-        element.innerHTML = agoFormat(Number(uploadTime));
-      });
-  }, 1000);
-
   scrollingFeature();
 
+}
+
+function imageHTML(images, id) {
+  let html = '';
+  const moreImages = images.length - 4;
+  images.forEach((image, index) => {
+    if (index < 4) {
+      if (index === 3) {
+        html += `
+        <a href="#image-${index + 1}">
+        <div class="post-image-container"
+        data-post-id="${id}">
+          <img class="post-image" src="images/posts/${id}/${image}">
+          <div class="more-images">+${moreImages}</div>
+        </div>
+        </a>
+      `;
+      } else {
+        html += `
+        <a href="#image-${index + 1}">
+        <div class="post-image-container"
+        data-post-id="${id}">
+          <img class="post-image" src="images/posts/${id}/${image}">
+        </div>
+        </a>
+      `;
+      }
+    }
+  });
+
+  if (images.length === 0) {
+    html = '';
+  }
+
+  return html;
+}
+
+function showPostImages(postId) {
+  let matchingPost;
+  let html = '';
+
+  posts.forEach((post) => {
+    if (postId === post.id) {
+      matchingPost = post;
+    }
+  });
+
+  const { images, id, caption } = matchingPost;
+
+  images.forEach((image, index) => {
+    html += `
+    <img class="post-image" src="images/posts/${id}/${image}" id="image-${index + 1}">
+    `;
+  });
+
+  document.querySelector('.app-display')
+    .innerHTML =
+    `<div class="home-container">
+    <img class="back-icon" src="images/back-icon.png">
+    <div>${caption}</div>
+    <div class="post-images">
+    ${html}
+    </div>
+    </div>
+    <button class="to-bottom-button auto-scroll-buttons">
+      <img class="arrow-icon" src="images/down-arrow.png">
+    </button>
+    <button class="to-top-button auto-scroll-buttons">
+     <img class="arrow-icon" src="images/up-arrow.png">
+    </button>
+  `;
+
+  document.querySelector('.back-icon')
+    .addEventListener('click', () => {
+      homeHTML();
+    });
+  scrollingFeature();
 }
 
 export function aboutHTML() {
@@ -158,84 +227,9 @@ export function contactHTML() {
     `;
 }
 
-function imageHTML(images, id) {
-  let html = '';
-  const moreImages = images.length - 4;
-  images.forEach((image, index) => {
-    if (index < 4) {
-      if (index === 3) {
-        html += `
-        <a href="#image-${index + 1}">
-        <div class="post-image-container"
-        data-post-id="${id}">
-          <img class="post-image" src="images/posts/${id}/${image}">
-          <div class="more-images">+${moreImages}</div>
-        </div>
-        </a>
-      `;
-      } else {
-        html += `
-        <a href="#image-${index + 1}">
-        <div class="post-image-container"
-        data-post-id="${id}">
-          <img class="post-image" src="images/posts/${id}/${image}">
-        </div>
-        </a>
-      `;
-      }
-    }
-  });
+// Ago time format
 
-  if (images.length === 0) {
-    html = '';
-  }
-
-  return html;
-}
-
-function showPostImages(postId) {
-  let matchingPost;
-  let html = '';
-
-  posts.forEach((post) => {
-    if (postId === post.id) {
-      matchingPost = post;
-    }
-  });
-
-  const { images, id, caption } = matchingPost;
-
-  images.forEach((image, index) => {
-    html += `
-    <img class="post-image" src="images/posts/${id}/${image}" id="image-${index + 1}">
-    `;
-  });
-
-  document.querySelector('.app-display')
-    .innerHTML =
-    `<div class="home-container">
-    <img class="back-icon" src="images/back-icon.png">
-    <div>${caption}</div>
-    <div class="post-images">
-    ${html}
-    </div>
-    </div>
-    <button class="to-bottom-button auto-scroll-buttons">
-      <img class="arrow-icon" src="images/down-arrow.png">
-    </button>
-    <button class="to-top-button auto-scroll-buttons">
-     <img class="arrow-icon" src="images/up-arrow.png">
-    </button>
-  `;
-
-  document.querySelector('.back-icon')
-    .addEventListener('click', () => {
-      homeHTML();
-    });
-  scrollingFeature();
-}
-
-function agoFormat(uploadTime) {
+export function agoFormat(uploadTime) {
   const currentTime = new Date().getTime();
   const timeDifference = currentTime - uploadTime;
 
@@ -273,21 +267,50 @@ export function studentsHTML() {
     .innerHTML = searchHTML();
 }
 
+// Search students feature
+
 let foundStudents = [];
 
 function searchHTML() {
   let html = '';
   const searchValue = document.querySelector('.search-input').value.toLowerCase();
+  const searchBy = document.querySelector('.search-filter').value;
 
+  if (searchBy === 'by name(en)') {
+    foundStudents = allStudents.filter((student) => {
+      return student.name.toLowerCase().includes(searchValue);
+    });
+  }
+  else if (searchBy === 'by name(mm)') {
+    foundStudents = allStudents.filter((student) => {
+      const { keyword } = student;
+      let include = false;
 
-  foundStudents = allStudents.filter((student) => {
-    return student.name.toLowerCase().includes(searchValue);
-  });
+      keyword.forEach((k) => {
+        if (k.includes(searchValue)) {
+          include = true;
+        }
+      });
+
+      return include;
+    });
+  }
+  else if (searchBy === 'by age') {
+    foundStudents = allStudents.filter((student) => {
+      return student.age === Number(searchValue);
+    });
+  }
+
+  else if (searchBy === 'by grade') {
+    foundStudents = allStudents.filter((student) => {
+      return student.grade.toLowerCase().includes(searchValue);
+    });
+  }
 
   foundStudents.sort((a, b) => {
     return a.name.localeCompare(b.name);
   });
-  
+
   foundStudents.forEach((student, index) => {
     const { name, age, image, grade } = student;
 

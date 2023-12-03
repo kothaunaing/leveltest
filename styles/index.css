@@ -156,9 +156,24 @@ body {
 }
 */
 
+.last-updated {
+  margin: 10px 0;
+  color: rgb(119, 119, 119);
+  text-align: center;
+}
+
+.search-filter {
+  height: 35px;
+  background-color: transparent;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1.5px solid rgb(184, 184, 184);
+}
+
 .search-box {
   border: 1.5px solid rgb(184, 184, 184);
   flex: 1;
+  min-width: 50px;
   max-width: 600px;
   display: flex;
   align-items: center;
@@ -215,6 +230,7 @@ body {
 .search-input {
   margin: 0 10px;
   flex: 1;
+  min-width: 50px;
   border: none;
   outline: none;
   padding-left: 5px;

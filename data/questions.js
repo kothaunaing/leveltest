@@ -1,4 +1,5 @@
 //import {hour, minute, second, removeTimer} from '../scripts/timer.js';
+import { scrollToTop } from "../scripts/main.js";
 
 export const questions = [
   {
@@ -854,6 +855,7 @@ function reviewYourAnswersHTML() {
   document.querySelector('.back-to-results-btn')
     .addEventListener('click', () => {
       userScoresHTML();
+      scrollToTop();
     });
 
   scrollingFeature();

@@ -5,7 +5,7 @@ import {
   userResults, refreshPage,
   removeUserAnswers
 } from "../data/questions.js";
-import { pagesHTML, pages } from '../data/more-pages.js';
+import { pagesHTML, pages, goToPages } from '../data/more-pages.js';
 import { studentsHTML, homeHTML, aboutHTML, contactHTML } from "../scripts/pages.js";
 
 // import { changeTime, removeTimer } from "./timer.js";
@@ -13,18 +13,22 @@ import { studentsHTML, homeHTML, aboutHTML, contactHTML } from "../scripts/pages
 const questionsPerPage = 5;
 const totalPages = Math.ceil((questions.length / questionsPerPage));
 
-let leftQuestions = JSON.parse(localStorage.getItem('left-questions')) || questions.slice();
-let currentQuestions = JSON.parse(localStorage.getItem('current-questions')) || leftQuestions.splice(0, questionsPerPage);
-let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions')) || questionsPerPage;
+let leftQuestions = JSON.parse(localStorage.getItem('left-questions'))
+  || questions.slice();
+let currentQuestions = JSON.parse(localStorage.getItem('current-questions'))
+  || leftQuestions.splice(0, questionsPerPage);
+let answeredQuestions = JSON.parse(localStorage.getItem('answered-questions'))
+  || questionsPerPage;
 export const today = dayjs();
 let currentPage;
 
-levelTestHTML();
 pagesHTML();
-showCurrrentYear();
+showCurrentYear();
 
 if (userResults.length !== 0) {
   userScoresHTML();
+} else {
+  levelTestHTML();
 }
 
 export function levelTestHTML() {
@@ -53,8 +57,8 @@ export function levelTestHTML() {
       <div class="question-container">
         <div class="question">
           <div class="number">${number}</div>
-         <div class="text">
-          ${question}
+          <div class="text">
+            ${question}
          </div>
         </div>
         ${choiceHTML(choices, number, userChoice)}
@@ -119,13 +123,8 @@ export function levelTestHTML() {
 
   nextButtonElement
     .addEventListener('click', () => {
-      scrollTo(
-        {
-          top: 0,
-          behavior: 'smooth'
-        }
-      );
-    })
+      scrollToTop();
+    });
 
   document.querySelector('.finish-button')
     .addEventListener('click', () => {
@@ -134,6 +133,15 @@ export function levelTestHTML() {
     });
 
   stopButtonFunction(currentPage);
+}
+
+export function scrollToTop() {
+  scrollTo(
+    {
+      top: 0,
+      behavior: 'smooth'
+    }
+  );
 }
 
 function choiceHTML(choices, number, userChoice) {
@@ -152,8 +160,8 @@ function choiceHTML(choices, number, userChoice) {
     </div>
     `;
   });
-  return html;
 
+  return html;
 }
 
 function saveToLocalStorage() {
@@ -191,7 +199,7 @@ function stayInThisPage() {
   clearTimeout(timeOutId);
   timeOutId = setTimeout(() => {
     element.style.display = 'none';
-  }, 5000)
+  }, 5000);
 }
 
 function checkIfcompleteTheTest() {
@@ -286,18 +294,8 @@ function goToActivePage() {
     }
   });
 
-  if (activePage.title === 'Home') {
-    homeHTML();
-  }
-  else if (activePage.title === 'About') {
-    aboutHTML();
-  }
-  else if (activePage.title === 'Contact') {
-    contactHTML();
-  }
-  else if (activePage.title === 'English Level Test') {
-    levelTestHTML();
-  }
+  const pageName = activePage.title;
+  goToPages(pageName);
 }
 
 const searchElement = document.querySelector('.search-input');
@@ -353,7 +351,6 @@ darkModeButton
     localStorage.setItem('theme', theme);
   });
 
-
 function changeToDarkMode() {
   document.body.classList.toggle('dark-mode');
   document.querySelector('.header').classList.toggle('dark-mode');
@@ -387,7 +384,7 @@ window.addEventListener('scroll', () => {
     .style.width = `${percentage}%`;
 });
 
-function showCurrrentYear() {
+function showCurrentYear() {
   const currentYear = today.format('YYYY');
 
   document.querySelector('.current-year')
